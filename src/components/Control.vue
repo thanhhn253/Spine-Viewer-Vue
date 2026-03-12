@@ -1,7 +1,7 @@
 <template>
     <div id="side" ref="controlBar">
         <div class="row">
-            <input type="file" ref="fileInput" id="fileInput" multiple accept=".json,.skel" placeholder="">
+            <input type="file" ref="fileInput" id="fileInput" multiple placeholder="">
             <button @click="switchControl" title="Switch collapse/expand">{{ $t('control.collapse') }}</button>
         </div>
         <div class="row">

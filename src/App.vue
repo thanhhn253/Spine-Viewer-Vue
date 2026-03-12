@@ -299,6 +299,26 @@ function onLoaded(loader, res) {
         activeContainer.data.tracks.length = 0
         activeContainer.data.queue.forEach(q => q.length = 0)
         appStore.items[appStore.activeIndex] = activeContainer.name
+
+        // Default to an animation whose name contains "standard" if any
+        const standardAnimation = newAnimations.find(a =>
+            a.name && String(a.name).toLowerCase().includes('standard'))
+        if (standardAnimation) {
+            activeContainer.setAnimation(0, standardAnimation.name, true)
+            activeContainer.data.tracks[0] = standardAnimation.name
+        }
+
+        // Set zoom to 40% and center the object on screen (use bounds so visual center is centered)
+        activeContainer.data.zoom = 0.4
+        const zoom = 0.4
+        const firstSpine = validSkeletonAnimations[0]
+        const bounds = firstSpine.getLocalBounds()
+        const centerX = 'minX' in bounds ? (bounds.minX + bounds.maxX) / 2 : bounds.x + bounds.width / 2
+        const centerY = 'minY' in bounds ? (bounds.minY + bounds.maxY) / 2 : bounds.y + bounds.height / 2
+        const screenCenterX = pixiApp.view.clientWidth / 2
+        const screenCenterY = pixiApp.view.clientHeight / 2
+        activeContainer.data.position.x = screenCenterX - centerX * zoom
+        activeContainer.data.position.y = screenCenterY - centerY * zoom
     }
 
     function slotCompare(slot1, slot2) {

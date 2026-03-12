@@ -70,7 +70,7 @@ export class Container {
                     this.data._defaultMix = value
                 }
             }),
-            _alphaMode: 1,
+            _alphaMode: 2,
             alphaMode: computed({
                 get: () => {
                     return this.data._alphaMode
